@@ -1,0 +1,1495 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sanctuary of Whiskers: บ้านพักใจของแมวจร</title>
+    <!-- Google Fonts: Prompt, Kodchasan, Mitr, Sarabun -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kodchasan:ital,wght@0,400;0,600;0,700;1,400&family=Mitr:wght@300;400;500;600&family=Prompt:wght@400;500;600;700&family=Sarabun:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-main: #FDF0F2;
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --text-dark: #5C3A31;
+            --text-muted: #8C6D63;
+            --border-dark: #F7D6DC;
+            --green-header: #D0707B; /* Primary Rose Header */
+            --green-badge: #E89CA7;  /* Soft Rose Badge */
+            --btn-next: #D0707B;    /* Primary Action Button */
+            --btn-next-hover: #B85265;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Prompt', 'Mitr', 'Kodchasan', 'Sarabun', sans-serif;
+            background-color: var(--bg-main);
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(244, 182, 194, 0.28) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(225, 163, 177, 0.22) 0%, transparent 40%);
+            color: var(--text-dark);
+            line-height: 1.55;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 0;
+            margin: 0;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Top Rose Header Bar */
+        .top-header {
+            width: 100%;
+            background: linear-gradient(135deg, #E89CA7, #D0707B);
+            color: #FFF;
+            padding: 14px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            font-family: 'Mitr', 'Prompt', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 600;
+            border-bottom: 2px solid var(--border-dark);
+            box-shadow: 0 4px 15px rgba(208, 112, 123, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+
+        .header-paw {
+            width: 32px;
+            height: 32px;
+            background: #FFF;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            border: 1.5px solid var(--border-dark);
+            box-shadow: 0 2px 6px rgba(184, 102, 120, 0.15);
+        }
+
+        /* Background Decorative Dotted Path SVG */
+        .dotted-path-bg {
+            position: fixed;
+            top: 58px;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            opacity: 0.32;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        /* Floating Corner Cats Decor */
+        .corner-decor-left {
+            position: fixed;
+            left: 12px;
+            bottom: 10px;
+            width: 130px;
+            pointer-events: none;
+            z-index: 8;
+            opacity: 0.88;
+            filter: drop-shadow(0 4px 8px rgba(184, 102, 120, 0.1));
+        }
+
+        .corner-decor-right {
+            position: fixed;
+            right: 12px;
+            bottom: 10px;
+            width: 130px;
+            pointer-events: none;
+            z-index: 8;
+            opacity: 0.95;
+            filter: drop-shadow(0 4px 8px rgba(184, 102, 120, 0.1));
+        }
+
+        /* Main Container */
+        .main-container {
+            width: 100%;
+            max-width: 820px;
+            background-color: transparent;
+            padding: 25px 20px 60px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .content-body {
+            width: 100%;
+        }
+
+        .screen {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .screen.active {
+            display: block;
+            opacity: 1;
+        }
+
+        /* Greeting & Progress Area */
+        .greeting-text {
+            text-align: center;
+            font-family: 'Mitr', 'Prompt', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 14px;
+            color: #6E3B47;
+        }
+
+        .progress-row {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 28px;
+        }
+
+        .scene-badge {
+            background: linear-gradient(135deg, #E89CA7, #D0707B);
+            color: #FFF;
+            font-family: 'Prompt', sans-serif;
+            font-weight: 600;
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-size: 1rem;
+            white-space: nowrap;
+            border: 1.5px solid var(--border-dark);
+            box-shadow: 0 2px 8px rgba(208, 112, 123, 0.2);
+        }
+
+        .progress-bar-bg {
+            flex-grow: 1;
+            height: 22px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border: 2px solid var(--border-dark);
+            border-radius: 15px;
+            padding: 2px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #F4A261, #E89CA7, #D0707B);
+            border-radius: 10px;
+            width: 12.5%;
+            transition: width 0.35s ease;
+        }
+
+        /* Centered Quiz Layout */
+        .quiz-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            width: 100%;
+        }
+
+        /* Illustration Card */
+        .illustration-card {
+            width: 100%;
+            max-width: 740px;
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            border: 2px solid var(--border-dark);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 12px 32px -8px rgba(184, 102, 120, 0.12);
+            margin: 0 auto 20px;
+        }
+
+        .result-cat-img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+            border-radius: 22px;
+            transition: transform 0.3s ease;
+        }
+
+        .result-cat-img:hover {
+            transform: scale(1.02);
+        }
+
+        .scene-text-box {
+            text-align: center;
+            max-width: 740px;
+            margin-bottom: 10px;
+        }
+
+        .scene-title-text {
+            font-family: 'Mitr', 'Prompt', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #6E3B47;
+        }
+
+        .question-desc-text {
+            font-size: 1.05rem;
+            color: var(--text-dark);
+            line-height: 1.65;
+        }
+
+        /* Vertical Options List */
+        .options-vertical-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            width: 100%;
+            max-width: 740px;
+            margin-top: 10px;
+        }
+
+        .opt-btn {
+            border: 2px solid var(--border-dark);
+            border-radius: 18px;
+            padding: 16px 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            text-align: left;
+            transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+            min-height: 58px;
+            width: 100%;
+            background-color: #FFF;
+            box-shadow: 0 4px 12px rgba(184, 102, 120, 0.06);
+        }
+
+        .opt-btn:hover {
+            transform: translateY(-3px) scale(1.01);
+            box-shadow: 0 8px 18px rgba(208, 112, 123, 0.2);
+        }
+
+        .opt-btn.selected {
+            border: 3px solid #D0707B !important;
+            box-shadow: 0 0 0 2px rgba(208, 112, 123, 0.3) !important;
+            transform: scale(1.02);
+            background-color: #FFF5F6 !important;
+        }
+
+        .opt-btn:nth-child(1) { background-color: #FFECD1; }
+        .opt-btn:nth-child(2) { background-color: #D8E2DC; }
+        .opt-btn:nth-child(3) { background-color: #D8F3DC; }
+        .opt-btn:nth-child(4) { background-color: #E8DFF5; }
+        .opt-btn:nth-child(5) { background-color: #FCD5CE; }
+        .opt-btn:nth-child(6) { background-color: #FCF6BD; }
+        .opt-btn:nth-child(7) { background-color: #E2E2F0; }
+        .opt-btn:nth-child(8) { background-color: #FFE5EC; }
+
+        .opt-text-full {
+            font-size: 1rem;
+            color: var(--text-dark);
+            font-weight: 600;
+            line-height: 1.5;
+            width: 100%;
+        }
+
+        /* Post-test Rating Scale Grid */
+        .rating-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+            width: 100%;
+            max-width: 740px;
+            margin-top: 10px;
+        }
+
+        .rating-btn {
+            border: 2px solid var(--border-dark);
+            border-radius: 18px;
+            padding: 16px 8px;
+            background-color: #FFF;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(184, 102, 120, 0.08);
+        }
+
+        .rating-btn:hover {
+            transform: translateY(-3px) scale(1.03);
+            background-color: #FFF0F2;
+            box-shadow: 0 8px 16px rgba(208, 112, 123, 0.2);
+        }
+
+        .rating-btn.selected {
+            background-color: var(--btn-next) !important;
+            color: #FFF !important;
+            border-color: var(--btn-next-hover);
+            transform: scale(1.06);
+            box-shadow: 0 8px 18px rgba(208, 112, 123, 0.35) !important;
+        }
+
+        .rating-num {
+            font-family: 'Prompt', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+        }
+
+        .rating-label {
+            font-size: 0.78rem;
+            font-weight: 600;
+            margin-top: 4px;
+            line-height: 1.2;
+        }
+
+        /* Base Action Button */
+        .btn-next {
+            width: 100%;
+            max-width: 740px;
+            background: linear-gradient(135deg, #E89CA7, #D0707B);
+            color: #FFF;
+            border: 2px solid var(--border-dark);
+            border-radius: 20px;
+            padding: 14px;
+            font-family: 'Prompt', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 6px 16px rgba(208, 112, 123, 0.25);
+            transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .btn-next:hover {
+            background: linear-gradient(135deg, #D0707B, #B85265);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 22px rgba(208, 112, 123, 0.35);
+        }
+
+        .btn-next:active {
+            transform: translateY(1px);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #8C6D63, #7A5C53) !important;
+            border-color: #D1C5B4 !important;
+        }
+        .btn-secondary:hover {
+            background: linear-gradient(135deg, #7A5C53, #5C3A31) !important;
+        }
+
+        .result-btn-group {
+            display: flex;
+            gap: 12px;
+            width: 100%;
+            max-width: 740px;
+            margin: 28px auto 0;
+        }
+
+        /* Intro Screen Styles */
+        .intro-box {
+            text-align: center;
+            max-width: 740px;
+            margin: 0 auto;
+            padding: 10px 0;
+        }
+
+        .intro-step {
+            display: none;
+            opacity: 0;
+            transform: translateY(12px);
+            transition: opacity 0.4s ease, transform 0.4s ease;
+        }
+
+        .intro-step.active-step {
+            display: block !important;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .intro-text-frameless {
+            text-align: center;
+            max-width: 740px;
+            margin: 0 auto 20px;
+            padding: 0 10px;
+        }
+
+        .intro-text-frameless p {
+            font-size: 1.08rem;
+            color: var(--text-dark);
+            line-height: 1.75;
+            margin-bottom: 12px;
+        }
+
+        .intro-subtitle {
+            font-size: 1.15rem;
+            color: #6E3B47;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .grandma-speech {
+            font-style: italic;
+            color: #6E3B47;
+            font-size: 1.08rem;
+            margin-top: 14px;
+            line-height: 1.7;
+        }
+
+        .name-input {
+            width: 100%;
+            max-width: 360px;
+            padding: 12px 18px;
+            font-family: 'Prompt', sans-serif;
+            font-size: 1.05rem;
+            border: 2px solid var(--border-dark);
+            border-radius: 16px;
+            margin: 8px 0 20px;
+            text-align: center;
+            outline: none;
+            background-color: #FFF;
+        }
+
+        .name-input:focus {
+            border-color: #D0707B;
+            box-shadow: 0 0 0 3px rgba(208, 112, 123, 0.2);
+        }
+
+        .gender-group {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+
+        .gender-btn {
+            background-color: #FFF;
+            border: 2px solid var(--border-dark);
+            border-radius: 20px;
+            padding: 10px 20px;
+            font-family: 'Prompt', sans-serif;
+            font-size: 0.98rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .gender-btn:hover {
+            background-color: #FFF0F2;
+        }
+
+        .gender-btn.selected {
+            background-color: var(--btn-next);
+            color: #FFF;
+            box-shadow: 0 2px 8px rgba(208, 112, 123, 0.3);
+        }
+
+        /* Result Screen Styles */
+        .result-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            border: 2px solid var(--border-dark);
+            border-radius: 24px;
+            padding: 28px;
+            margin: 15px 0 25px;
+            box-shadow: 0 12px 32px -8px rgba(184, 102, 120, 0.12);
+        }
+
+        .posttest-card {
+            background: linear-gradient(135deg, #FFFDF8 0%, #FFF0F3 100%);
+            border: 2px solid var(--border-dark);
+            border-radius: 24px;
+            padding: 24px;
+            margin-top: 25px;
+            box-shadow: 0 6px 18px rgba(184, 102, 120, 0.08);
+        }
+
+        .cat-tag {
+            display: inline-block;
+            background: linear-gradient(135deg, #E89CA7, #D0707B);
+            color: #FFF;
+            padding: 5px 20px;
+            border-radius: 20px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            border: 1.5px solid var(--border-dark);
+            box-shadow: 0 2px 8px rgba(208, 112, 123, 0.2);
+        }
+
+        .cat-title {
+            font-size: 2.2rem;
+            color: #6E3B47;
+            font-weight: 700;
+            margin-bottom: 5px;
+            font-family: 'Mitr', 'Prompt', sans-serif;
+        }
+
+        /* Knowledge Modal Overlay */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(92, 58, 49, 0.6);
+            backdrop-filter: blur(5px);
+            z-index: 999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .modal-overlay.active-modal {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-card {
+            background-color: var(--card-bg);
+            border: 2px solid var(--border-dark);
+            border-radius: 26px;
+            padding: 28px;
+            max-width: 680px;
+            width: 100%;
+            max-height: 85vh;
+            overflow-y: auto;
+            box-shadow: 0 12px 36px rgba(184, 102, 120, 0.25);
+            text-align: left;
+        }
+
+        .modal-close-icon {
+            background: none;
+            border: none;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            cursor: pointer;
+            padding: 4px 10px;
+            border-radius: 50%;
+        }
+
+        .knowledge-section {
+            background-color: #FFF;
+            border: 1px solid var(--border-dark);
+            border-radius: 18px;
+            padding: 18px 20px;
+            margin-bottom: 14px;
+        }
+
+        .knowledge-section h4 {
+            font-family: 'Prompt', sans-serif;
+            color: #6E3B47;
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+
+        .knowledge-section p {
+            font-size: 0.98rem;
+            line-height: 1.7;
+            color: var(--text-dark);
+        }
+
+        @media (max-width: 820px) {
+            .top-header { font-size: 1.15rem; }
+            .rating-grid { grid-template-columns: repeat(5, 1fr); gap: 6px; }
+            .rating-btn { padding: 12px 4px; }
+            .rating-num { font-size: 1.15rem; }
+            .rating-label { font-size: 0.68rem; }
+            .result-btn-group { flex-direction: column; gap: 10px; }
+            .corner-decor-left, .corner-decor-right { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Top Rose Header Bar -->
+<div class="top-header">
+    <span class="header-paw">🐾</span>
+    <span>Sanctuary of Whiskers: บ้านพักใจของแมวจร</span>
+    <span class="header-paw">🐾</span>
+</div>
+
+<!-- Background Decorative Dotted Path SVG -->
+<div class="dotted-path-bg">
+    <svg class="w-full h-full" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: 100%;">
+        <path d="M -50 15 Q 200 80, 400 160 T 900 120 T 1400 240" fill="none" stroke="#BC7080" stroke-width="3" stroke-dasharray="10 12" />
+        <path d="M 100 650 Q 500 450, 800 700 T 1500 550" fill="none" stroke="#BC7080" stroke-width="3" stroke-dasharray="10 12" />
+    </svg>
+</div>
+
+<!-- Floating Corner Cats Decorations -->
+<img src="fly_cat.png" alt="Fly Cat Doodle" class="corner-decor-left" onerror="this.style.display='none';">
+<img src="palico.png" alt="Palico Cats" class="corner-decor-right" onerror="this.style.display='none';">
+
+<!-- Main App Container -->
+<div class="main-container">
+    <div class="content-body">
+
+        <!-- 1. INTRO SCREEN -->
+        <div id="intro-screen" class="screen active">
+            <div class="intro-box">
+
+                <!-- INTRO PAGE 1 -->
+                <div id="intro-step-1" class="intro-step active-step">
+                    <div class="illustration-card" style="margin-bottom: 20px;">
+                        <img src="intro1.jpg" alt="ในเย็นวันเสาร์ที่แสนอบอุ่น" class="result-cat-img" onerror="this.src='https://via.placeholder.com/800x450/FDF0F2/5C3A31?text='+encodeURIComponent('intro1.jpg')">
+                    </div>
+
+                    <div class="intro-text-frameless">
+                        <p class="intro-subtitle"><em>"ในเย็นวันเสาร์ที่ท้องฟ้าเรื่อสีส้มอบอุ่น..."</em></p>
+                        <p>คุณกำลังเดินเล่นปล่อยใจไปตามซอยเล็กๆ ที่ไม่เคยเฉียดผ่านมาก่อน เสียงลมพัดใบไม้พลิ้วไหวชวนให้รู้สึกสงบ ทันใดนั้น สายตาของคุณก็ไปสะดุดเข้ากับป้ายไม้เก่าๆ หน้าบ้านสไตล์วินเทจหลังหนึ่ง เขียนด้วยลายมือบรรจงว่า <strong>"Sanctuary of Whiskers: บ้านพักใจแมวจร"</strong></p>
+                    </div>
+
+                    <button class="btn-next" style="margin: 20px auto 0;" onclick="goToIntroStep(2)">
+                        ถัดไป ➔
+                    </button>
+                </div>
+
+                <!-- INTRO PAGE 2 -->
+                <div id="intro-step-2" class="intro-step">
+                    <div class="illustration-card" style="margin-bottom: 20px;">
+                        <img src="intro2.jpg" alt="Sanctuary of Whiskers" class="result-cat-img" onerror="this.src='https://via.placeholder.com/800x450/FDF0F2/5C3A31?text='+encodeURIComponent('intro2.jpg')">
+                    </div>
+
+                    <div class="intro-text-frameless">
+                        <p>คุณก้าวเท้าผ่านประตูรั้วเข้าไป กลิ่นหอมของชาร้อนหอมกรุ่นและแสงแดดอ่อนๆ ต้อนรับคุณอย่างอ่อนโยน เจ้าของบ้านพัก คุณยายท่าทางใจดี ยิ้มให้คุณแล้วพูดขึ้นว่า</p>
+                        <p class="grandma-speech">“ยินดีต้อนรับจ้ะ ที่นี่มีเด็กๆ อยู่ 8 ตัว แต่ละตัวมีเรื่องราวและความรู้สึกที่แตกต่างกันไป ลองเดินดูรอบๆ สิ... บางทีวันนี้อาจมี ‘ใครบางคน’ กำลังรอพบคุณอยู่ก็ได้นะ”</p>
+                    </div>
+
+                    <button class="btn-next" style="margin: 20px auto 0;" onclick="goToIntroStep(3)">
+                        ถัดไป ➔
+                    </button>
+                </div>
+
+                <!-- INTRO PAGE 3 -->
+                <div id="intro-step-3" class="intro-step">
+                    <div class="intro-text-frameless" style="margin-top: 30px;">
+                        <h2 style="font-family:'Mitr','Prompt'; font-size:1.4rem; color:#6E3B47; margin-bottom:18px;">ทำความรู้จักกันก่อนออกเดินทาง 🐾</h2>
+                        
+                        <div style="margin-bottom: 22px;">
+                            <label style="font-family:'Prompt'; font-weight:600; font-size:1rem;">โปรดบอกชื่อของคุณให้คุณยายรู้จัก:</label><br>
+                            <input type="text" id="player-name-input" class="name-input" placeholder="พิมพ์ชื่อของคุณที่นี่..." value="เจน">
+                        </div>
+
+                        <div style="margin-bottom: 10px;">
+                            <label style="font-family:'Prompt'; font-weight:600; font-size:1rem; display:block; margin-bottom:8px;">เลือกสรรพนาม / เพศของคุณ:</label>
+                            <div class="gender-group">
+                                <button type="button" class="gender-btn selected" onclick="setGender('female', this)">👩 หญิง (หนู/ค่ะ)</button>
+                                <button type="button" class="gender-btn" onclick="setGender('male', this)">👨 ชาย (ผม/ครับ)</button>
+                                <button type="button" class="gender-btn" onclick="setGender('other', this)">✨ ไม่ระบุ (คุณ)</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="btn-next" style="margin: 20px auto 0;" onclick="startQuiz()">
+                        เริ่มออกเดินทาง ➔
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- 2. QUIZ SCREEN -->
+        <div id="quiz-screen" class="screen">
+            <div id="user-greeting" class="greeting-text">สวัสดี, เจน ⭐️</div>
+            
+            <div class="progress-row">
+                <div id="scene-badge" class="scene-badge">1 / 8</div>
+                <div class="progress-bar-bg">
+                    <div id="progress-fill" class="progress-bar-fill"></div>
+                </div>
+            </div>
+
+            <div class="quiz-container">
+                <div class="illustration-card" style="margin-bottom: 15px;">
+                    <img id="quiz-scene-img" src="scene1.jpg" alt="ภาพประกอบซีน" class="result-cat-img" onerror="this.src='https://via.placeholder.com/800x450/FDF0F2/5C3A31?text=Sanctuary+of+Whiskers'">
+                </div>
+
+                <div class="scene-text-box">
+                    <h2 id="scene-title" class="scene-title-text">ก้าวแรกผ่านประตูบ้านพัก</h2>
+                    <p id="question-text" class="question-desc-text">
+                        คุณก้าวเท้าผ่านประตูรั้วเข้ามา กลิ่นชาร้อนลอยมาแตะจมูก คุณยายยิ้มต้อนรับอย่างอ่อนโยน สิ่งแรกที่คุณรู้สึกหรือแสดงออกคืออะไร?
+                    </p>
+                </div>
+
+                <div id="options-container" class="options-vertical-list"></div>
+            </div>
+        </div>
+
+        <!-- 3. TRANSITION PAGE BEFORE POST-TEST -->
+        <div id="posttest-intro-screen" class="screen">
+            <div class="intro-box">
+                <div class="illustration-card" style="margin-bottom: 20px;">
+                    <img src="wait.jpg" alt="น้องแมวกำลังรอคุณอยู่" class="result-cat-img" onerror="this.src='https://via.placeholder.com/800x450/FDF0F2/5C3A31?text='+encodeURIComponent('wait.jpg')">
+                </div>
+
+                <div class="intro-text-frameless" style="margin-top: 15px;">
+                    <h2 style="font-family:'Mitr','Prompt'; font-size:1.5rem; color:#6E3B47; margin-bottom:14px;">
+                        ก่อนเราจะรู้ได้รู้จักน้องแมวของเรา เรามาทำแบบทดสอบกันสักหน่อย 🐾
+                    </h2>
+                    <p style="font-size: 1.05rem; color: var(--text-dark); line-height: 1.7; max-width:620px; margin:0 auto;">
+                        แบบประเมินการรับรู้และความเข้าใจในตนเอง (Self-Awareness Post-test) จำนวน 20 ข้อ<br>
+                        <em>ขอให้นักเรียนตอบคำถามที่ตรงกับความรู้สึกจริงมากที่สุดนะเหมี้ยว~</em>
+                    </p>
+                </div>
+
+                <button class="btn-next" style="margin: 25px auto 0;" onclick="startPostTestQuiz()">
+                    เริ่มทำแบบทดสอบ (Post-test) ➔
+                </button>
+            </div>
+        </div>
+
+        <!-- 4. POST-TEST QUIZ SCREEN -->
+        <div id="posttest-quiz-screen" class="screen">
+            <div id="posttest-greeting" class="greeting-text">แบบทดสอบ Post-test ⭐️</div>
+            
+            <div class="progress-row">
+                <div id="posttest-badge" class="scene-badge">ข้อ 1 / 20</div>
+                <div class="progress-bar-bg">
+                    <div id="posttest-progress-fill" class="progress-bar-fill"></div>
+                </div>
+            </div>
+
+            <div class="quiz-container">
+                <div class="scene-text-box">
+                    <span style="font-size: 0.9rem; color: var(--btn-next); font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">Self-Awareness Assessment</span>
+                    <h2 id="posttest-question-text" class="scene-title-text" style="font-size: 1.25rem; margin-top: 8px;">
+                        ข้อคำถามจะแสดงที่นี่...
+                    </h2>
+                </div>
+
+                <div class="rating-grid">
+                    <button type="button" class="rating-btn" onclick="selectPostTestRating(1, this)">
+                        <span class="rating-num">1</span>
+                        <span class="rating-label">ไม่จริงเลย</span>
+                    </button>
+                    <button type="button" class="rating-btn" onclick="selectPostTestRating(2, this)">
+                        <span class="rating-num">2</span>
+                        <span class="rating-label">ค่อนข้างไม่จริง</span>
+                    </button>
+                    <button type="button" class="rating-btn" onclick="selectPostTestRating(3, this)">
+                        <span class="rating-num">3</span>
+                        <span class="rating-label">ค่อนข้างจริง</span>
+                    </button>
+                    <button type="button" class="rating-btn" onclick="selectPostTestRating(4, this)">
+                        <span class="rating-num">4</span>
+                        <span class="rating-label">จริง</span>
+                    </button>
+                    <button type="button" class="rating-btn" onclick="selectPostTestRating(5, this)">
+                        <span class="rating-num">5</span>
+                        <span class="rating-label">จริงมากที่สุด</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 5. NEW STORY CONCLUSION SCREEN (บทสรุปการเดินทาง - การพบกันของหัวใจ) -->
+        <div id="conclusion-story-screen" class="screen">
+            <div class="intro-box">
+                <div class="illustration-card" style="margin-bottom: 20px;">
+                    <img src="gohome.jpg" alt="บทสรุปการเดินทาง - การพบกันของหัวใจ" class="result-cat-img" onerror="this.src='https://via.placeholder.com/800x450/FDF0F2/5C3A31?text='+encodeURIComponent('gohome.jpg')">
+                </div>
+
+                <div class="intro-text-frameless" style="margin-top: 15px;">
+                    <span class="cat-tag" style="margin-bottom: 12px;">Result Phase</span>
+                    <h2 style="font-family:'Mitr','Prompt'; font-size:1.6rem; color:#6E3B47; margin-bottom:14px;">
+                        บทสรุปการเดินทาง - การพบกันของหัวใจ 🐾
+                    </h2>
+                    <p style="font-size: 1.08rem; color: var(--text-dark); line-height: 1.75; margin-bottom: 10px;">
+                        คุณยายยิ้มอย่างอ่อนโยนแล้วยื่นตะกร้าเดินทางใบเก่าที่ประดิดประดอยอย่างดีให้คุณ
+                    </p>
+                    <p id="conclusion-grandma-speech" class="grandma-speech" style="font-size: 1.12rem;">
+                        “ดูเหมือนว่า... วันนี้ไม่ได้มีแค่หนูที่กำลังมองหาใครสักคนนะจ๊ะ แต่มีเด็กคนหนึ่งที่เลือกหนูไว้ตั้งแต่ก้าวแรกที่คุณเดินเข้ามาแล้วล่ะ”
+                    </p>
+                </div>
+
+                <button class="btn-next" style="margin: 25px auto 0;" onclick="showFinalResults()">
+                    เปิดดูข้างในตะกร้า ➔
+                </button>
+            </div>
+        </div>
+
+        <!-- 6. FINAL UNIFIED RESULT SCREEN -->
+        <div id="result-screen" class="screen">
+            <h1 style="text-align: center; font-family: 'Mitr','Prompt'; font-size: 2rem; margin-bottom: 6px; color: #6E3B47;">
+                การพบกันของหัวใจ 🐾
+            </h1>
+            <p style="text-align: center; color: var(--text-muted); margin-bottom: 20px; font-size:1.05rem;">
+                เมื่อคุณเปิดฝาตะกร้าออก เจ้าตัวเล็กในนั้นก็ส่งเสียง “เหมี้ยว~” เบาๆ
+            </p>
+
+            <!-- Matched Cat Result (Image + Narrative) -->
+            <div id="result-card-container"></div>
+
+            <!-- Post-test Self-Awareness Evaluation Card -->
+            <div id="posttest-result-container"></div>
+
+            <div class="result-btn-group">
+                <button class="btn-next btn-secondary" onclick="openKnowledgeModal()">
+                    📚 ความรู้เพิ่มเติม
+                </button>
+                <button class="btn-next" onclick="restartQuiz()">
+                    ↺ กลับไปเริ่มต้นใหม่
+                </button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- KNOWLEDGE MODAL OVERLAY -->
+<div id="knowledge-modal" class="modal-overlay">
+    <div class="modal-card">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; border-bottom:2px dashed var(--border-dark); padding-bottom:12px;">
+            <h3 style="font-family:'Prompt'; font-size:1.25rem; font-weight:700; color:#6E3B47; margin:0;">
+                📚 ความรู้เพิ่มเติมเกี่ยวกับการตระหนักรู้ในตนเอง
+            </h3>
+            <button type="button" class="modal-close-icon" onclick="closeKnowledgeModal()">✕</button>
+        </div>
+
+        <div class="knowledge-body">
+            <div class="knowledge-section">
+                <h4>🌱 1. การตระหนักรู้ในตนเอง (Self-Awareness) คืออะไร?</h4>
+                <p>การตระหนักรู้ในตนเอง คือความสามารถในการรับรู้และเข้าใจอารมณ์ ความรู้สึก ความคิด จุดเด่น จุดที่ควรพัฒนา รวมถึงค่านิยมของตนเองอย่างตามจริง ช่วยให้เราเข้าใจสาเหตุของการพฤติกรรมและการตอบสนองต่อสถานการณ์ต่างๆ ในชีวิตได้อย่างมีสติ</p>
+            </div>
+
+            <div class="knowledge-section">
+                <h4>🧡 2. การสร้าง Safe Zone และพื้นที่ปลอดภัยให้จิตใจ</h4>
+                <p>เปรียบเหมือนกับแมวจรในบ้านพักใจที่ต้องการความเชื่อใจและความอบอุ่น มนุษย์เราทุกคนต่างต้องการ "Safe Zone" ในชีวิตเช่นกัน Safe Zone ไม่ใช่แค่สถานที่ แต่คือความรู้สึกสบายใจ การรับฟังโดยไม่ตัดสิน และการซื่อตรงต่อความรู้สึกของตนเอง</p>
+            </div>
+
+            <div class="knowledge-section">
+                <h4>🍃 3. เคล็ดลับการดูแลจิตใจในวันหนักๆ</h4>
+                <ul style="padding-left:20px; line-height:1.75; font-size:0.98rem; color:var(--text-dark);">
+                    <li><strong>โอบกอดอารมณ์ตนเอง:</strong> ไม่จำเป็นต้องฝืนยิ้มหรือรีบร้อนเข้มแข็งตลอดเวลา การยอมรับความเศร้าคือจุดเริ่มต้นของการเยียวยา</li>
+                    <li><strong>ตั้งขอบเขตที่ชัดเจน (Personal Space):</strong> กล้าปฏิเสธสิ่งที่ทำร้ายจิตใจเพื่อปกป้องพลังงานในตนเอง</li>
+                    <li><strong>เติมพลังจากความสุขเล็กๆ:</strong> มองหารอยยิ้ม ความอบอุ่นจากธรรมชาติ ชาร้อน หรือสัตว์เลี้ยงใกล้ตัวในทุกวัน</li>
+                </ul>
+            </div>
+        </div>
+
+        <button type="button" class="btn-next btn-secondary" style="margin-top:20px; width:100%;" onclick="closeKnowledgeModal()">
+            ปิดหน้าความรู้เพิ่มเติม ✕
+        </button>
+    </div>
+</div>
+
+<script>
+    // --- 1. SANCTUARY QUIZ DATA (8 SCENES) ---
+    const questions = [
+        {
+            scene: "1 / 8",
+            image: "scene1.jpg",
+            title: "ก้าวแรกผ่านประตูบ้านพัก",
+            text: "คุณก้าวเท้าผ่านประตูรั้วบ้านพักเข้ามา ลมเย็นพัดผ่านพร้อมกลิ่นชาร้อน คุณยายยิ้มต้อนรับ สิ่งแรกที่คุณรู้สึกหรือทำคืออะไร?",
+            options: [
+                { type: "A", text: "ยิ้มตอบคุณยาย รู้สึกตื่นเต้นและมองไปรอบๆ ด้วยความร่าเริง อยากรู้ว่ามีอะไรสนุกๆ รออยู่บ้าง" },
+                { type: "B", text: "รู้สึกสงบและปลอดภัยอย่างประหลาด ราวกับว่าสถานที่นี้จะปกป้องเราจากความวุ่นวายข้างนอกได้" },
+                { type: "C", text: "สะดุดตากับกลิ่นหอมและรายละเอียดตกแต่งบ้าน ขอสแกนมองรอบๆ ก่อนว่าสะอาดและน่าไว้วางใจไหม" },
+                { type: "D", text: "มองหาทางออกสำรองไว้ก่อนแบบไม่รู้ตัว หรือเลือกยืนใกล้ประตูไว้เพราะยังไม่ชินกับสถานที่ใหม่" },
+                { type: "E", text_female: "เดินเข้าไปหาคุณยายแล้วถามตรงๆ ว่า “ที่นี่มีกฎอะไรไหมค่ะ?” หรือสำรวจด้วยท่าทางมั่นใจ", text_male: "เดินเข้าไปหาคุณยายแล้วถามตรงๆ ว่า “ที่นี่มีกฎอะไรไหมครับ?” หรือสำรวจด้วยท่าทางมั่นใจ", text_other: "เดินเข้าไปหาคุณยายแล้วถามตรงๆ ว่า “ที่นี่มีกฎอะไรไหมครับ/ค่ะ?” หรือสำรวจด้วยท่าทางมั่นใจ" },
+                { type: "F", text: "สะดุ้งเล็กน้อยตอนได้ยินเสียงประตูรั้วปิดตามหลัง ก่อนจะเผลอหลุดหัวเราะให้กับความขวัญอ่อนของตัวเอง" },
+                { type: "G", text: "ถอนหายใจเบาๆ ความอบอุ่นของสถานที่นี้ทำให้ความล้าและเรื่องเศร้าที่แบกมาเริ่มผ่อนคลายลง" },
+                { type: "H", text: "จินตนาการไปไกลแล้วว่า การมาที่นี่อาจเป็นจุดเริ่มต้นของเรื่องราวหรือการเปลี่ยนแปลงใหม่ๆ ในชีวิต" }
+            ]
+        },
+        {
+            scene: "2 / 8",
+            image: "scene2.jpg",
+            title: "สวนหลังบ้านและการสำรวจพลังงาน",
+            text: "คุณเดินออกไปที่สวนหลังบ้าน ลมพัดพลิ้วไหว คุณเห็นแมวบางตัวกำลังเคลื่อนไหว บทบาทของคุณในพื้นที่แห่งนี้คืออะไร?",
+            options: [
+                { type: "A", text: "วิ่งเข้าไปเล่นกับแมวเปอร์เซียที่กำลังไล่ผีเสื้อทันที พลังงานสดใสแบบนี้แหละใช่เลย!" },
+                { type: "B", text: "นั่งลงบนม้านั่งไม้เงียบๆ ยื่นมือออกไปรอให้แมวที่พร้อม เดินเข้ามาหาเองโดยไม่บังคับ" },
+                { type: "C", text: "ยืนมองดูอยู่ห่างๆ สังเกตว่าแมวแต่ละตัวขนสะอาดไหม มีกระถางต้นไม้ต้นไหนเลอะเทอะหรือเปล่า" },
+                { type: "D", text: "ค่อยๆ ก้าวอย่างระมัดระวัง พยายามไม่ทำเสียงดัง เพราะเกรงใจแมวเบงกอลที่แอบอยู่หลังกระถาง" },
+                { type: "E", text: "เดินตรงไปสำรวจอาณาเขตสวนอย่างโดดเดี่ยว ดูว่าจุดไหนปลอดภัยและมีอุปสรรคอะไรบ้าง" },
+                { type: "F", text: "ยืนลุ้นว่าผีเสื้อจะบินไปทางไหน หรือจะมีแมวตัวไหนพุ่งออกมาจากพุ่มไม้ให้ตกใจเล่นอีกไหม" },
+                { type: "G", text: "นั่งมองเงาแดดที่ลอดผ่านใบไม้ รู้สึกเข้าอกเข้าใจความเงียบเหงาที่ซ่อนอยู่ในสวนแห่งนี้" },
+                { type: "H", text: "ยืนมองก้อนเมฆและทิวทัศน์นอกรั้วสวน พลางตั้งเป้าหมายในใจถึงสิ่งที่จะทำต่อไปหลังจากนี้" }
+            ]
+        },
+        {
+            scene: "3 / 8",
+            image: "scene3.jpg",
+            title: "เสียงแจกันตกแตก!",
+            text: "เพล้งงง! แจกันใบเล็กหล่นแตกกระจายบนพื้นห้องนั่งเล่น เสียงดังสนั่นไปทั่วห้อง คุณจะแสดงปฏิกิริยาอย่างไรในวินาทีนั้น?",
+            options: [
+                { type: "A", text: "ตกใจนิดหน่อย แต่มองโลกแง่ดี “ไม่เป็นไรนะ! ช่วยกันเก็บ เดี๋ยวก็กลับมาสวยเหมือนเดิม”" },
+                { type: "B", text: "ตั้งสติทันที รีบบอกให้คนอื่นถอยออกไป แล้วอาสาเข้าจัดการเศษแก้วอย่างระมัดระวัง" },
+                { type: "C", text: "ชักสีหน้าเซ็งเล็กน้อย “ทำไมถึงสะเพร่าแบบนีนะ” แล้วเดินไปหยิบไม้กวาดมาทำความสะอาดอย่างพิถีพิถัน" },
+                { type: "D", text: "ตัวเกร็งและผงะถอยหลังด้วยความตกใจ หัวใจเต้นแรง คิดในใจว่าเกิดอะไรขึ้น!" },
+                { type: "E", text: "คิ้วขมวด เดินเข้าไปดูด้วยความหงุดหงิดนิดๆ ว่าใครทำตก และพร้อมจะปกป้องแมวไม่ให้โดนเศษแก้ว" },
+                { type: "F", text: "ตาโต อ้าปากค้าง ตกใจมาก! แต่วินาทีต่อมาก็รู้สึกว่า เหตุการณ์นี้ทำให้หายง่วงเป็นบ้า" },
+                { type: "G", text: "มองเศษแก้วที่แตกสลายแล้วรู้สึกสะท้อนใจ ถึงความงดงามที่มักจะพังทลายลงได้ง่ายๆ" },
+                { type: "H", text: "มองข้ามความเสียหาย แล้วรีบคิดหาทางแก้ไข หรือหาแจกันใบใหม่ที่ไฉไลกว่าเดิมมาทดแทน" }
+            ]
+        },
+        {
+            scene: "4 / 8",
+            image: "scene4.jpg",
+            title: "ชามอาหารและกฎเกณฑ์",
+            text: "ถึงเวลาอาหารเย็น คุณยายเตรียมอาหารแมวไว้หลายประเภท คุณได้รับหน้าที่นำชามอาหารไปวาง คุณมีแนวทางจัดการอย่างไร?",
+            options: [
+                { type: "A", text: "ตักอาหารแจกจ่ายด้วยรอยยิ้ม และพยายามชวนแมวทุกตัวคุยอย่างอารมณ์ดี" },
+                { type: "B", text: "วางชามอาหารอย่างเป็นระเบียบ เท่าเทียม และนั่งเฝ้าดูให้เด็กๆ กินอย่างสงบสุข" },
+                { type: "C", text: "ตรวจสอบวัตถุดิบและภาชนะอย่างรายละเอียด ชามต้องสะอาด อาหารต้องตรงตามโภชนาการเท่านั้น" },
+                { type: "D", text: "ค่อยๆ วางชามไว้ไกลๆ สำหรับตัวที่ขี้กลัว แล้วถอยออกมาเพื่อให้พวกมันกินได้อย่างสบายใจ" },
+                { type: "E", text: "จัดการแบ่งโซนอาหารชัดเจน ไม่ยอมให้แมวตัวไหนมาแย่งอาหารตัวอื่นเด็ดขาด" },
+                { type: "F", text: "ลองผสมสแน็คแมวรสใหม่ๆ ลงไป ลุ้นว่าแมวตัวไหนจะทำหน้ายังไงตอนได้ลองชิม" },
+                { type: "G", text: "นั่งมองแมวตัวที่ปฏิเสธอาหารด้วยความเข้าใจ และค่อยๆ ปลอบประโลมมันอย่างใจเย็น" },
+                { type: "H", text: "วางแผนตารางการกินอาหารระยะยาว เพื่อให้แมวจรทุกตัวสุขภาพดีขึ้นในอนาคต" }
+            ]
+        },
+        {
+            scene: "5 / 8",
+            image: "scene5.jpg",
+            title: "มุมหน้าต่างยามเย็น",
+            text: "แสงแดดเริ่มเปลี่ยนเป็นสีส้มอมม่วง ลมยามเย็นพัดเข้ามาทางหน้าต่าง คุณเลือกที่จะนั่งพักผ่อนตรงไหน และคิดอะไรอยู่?",
+            options: [
+                { type: "A", text: "นั่งตรงกลางห้อง ฮัมเพลงเบาๆ รู้สึกขอบคุณสำหรับวันที่แสนน่ารักนี้" },
+                { type: "B", text: "นั่งบนโซฟาที่เงียบสงบ เปิดอ้อมกอดพร้อมให้แมวทุกตัวเข้ามาซบหรือนอนตัก" },
+                { type: "C", text: "นั่งตรงเก้าอี้เดี่ยวที่สะอาดเรียบร้อย ดื่มชาร้อนจิบเบาๆ จ้องมองบรรยากาศอย่างมีสไตล์" },
+                { type: "D", text: "นั่งในมุมเงียบๆ ที่คนเดินผ่านน้อยที่สุด แอบมองความน่ารักของแมวจากระยะปลอดภัย" },
+                { type: "E", text: "นั่งพิงเสาในจุดที่มองเห็นทั่วทั้งห้อง เพื่อคอยดูแลความเรียบร้อยและไม่ให้ใครมาก่อกวน" },
+                { type: "F", text: "นั่งเก้าอี้โยก แล้วเผลอทำชาหกใส่ตัวเองนิดหน่อยเพราะมัวแต่มองแมวเล่นกัน" },
+                { type: "G", text: "นั่งริมหน้าต่าง ทอดสายตาตามหยดน้ำฝนหรือเมฆยามเย็น นึกถึงอดีตและความทรงจำเก่าๆ" },
+                { type: "H", text: "นั่งยึดตัวตรงริมหน้าต่าง มองออกไปไกลสุดสายตา นึกถึงเป้าหมายและการเดินทางในวันพรุ่งนี้" }
+            ]
+        },
+        {
+            scene: "6 / 8",
+            image: "scene6.jpg",
+            title: "ไออุ่นข้างเตาผิง",
+            text: "บรรยากาศเริ่มเย็นลง คุณยายจุดเตาผิง ไฟในเตาให้ความอบอุ่น แต่ก็มีเสียงไม้ฟืนแตกดัง เปรี๊ยะ! เป็นระยะ คุณมีปฏิกิริยาอย่างไร?",
+            options: [
+                { type: "A", text: "ขยับเข้าไปใกล้เตาผิง เพลิดเพลินกับความอบอุ่นและประกายไฟที่กระโดดไปมา" },
+                { type: "B", text: "นั่งลงข้างเตาผิงอย่างสงบ หลับตาลงอย่างผ่อนคลาย มั่นใจในความปลอดภัยของบ้านหลังนี้" },
+                { type: "C", text: "ขยับเว้นระยะห่างนิดหน่อย เพราะกลัวเขม่าควันไฟจะติดเสื้อผ้าหรือทำให้อากาศไม่บริสุทธิ์" },
+                { type: "D", text: "สะดุ้งทุกครั้งที่เสียงไม้ฟืนแตก เปรี๊ยะ! พร้อมคอยสังเกตความเคลื่อนไหวรอบตัว" },
+                { type: "E", text: "จ้องมองกองไฟด้วยสายตามุ่งมั่น ไฟที่แผดเผาทำให้รู้สึกถึงพลังและการปกป้อง" },
+                { type: "F", text: "เผลออุทาน \"อุ๊ย!\" ตอนประกายไฟปะทุ แต่นัยน์ตาก็จ้องมองมันอย่างตื่นตาตื่นใจ" },
+                { type: "G", text: "จ้องมองกองไฟที่ค่อยๆ มอดลง นึกถึงความจางหายและความสูญเสียที่เคยเจอ" },
+                { type: "H", text: "มองฟืนที่เป็นเชื้อเพลิง นึกถึงพลังงานที่จะช่วยขับเคลื่อนชีวิตให้ก้าวไปข้างหน้า" }
+            ]
+        },
+        {
+            scene: "7 / 8",
+            image: "scene7.jpg",
+            title: "บทสนทนากับคุณยาย",
+            text_female: "ก่อนกลับ คุณยายเดินเข้ามาคุยกับคุณและถามว่า \"สิ่งที่หนูคิดว่าสำคัญที่สุดในการรักษาหัวใจที่เคยแตกสลาย คืออะไรหรือจ๊ะ?\" คุณจะตอบว่าอะไร?",
+            text_male: "ก่อนกลับ คุณยายเดินเข้ามาคุยกับคุณและถามว่า \"สิ่งที่พ่อหนุ่มคิดว่าสำคัญที่สุดในการรักษาหัวใจที่เคยแตกสลาย คืออะไรหรือจ๊ะ?\" คุณจะตอบว่าอะไร?",
+            text_other: "ก่อนกลับ คุณยายเดินเข้ามาคุยกับคุณและถามว่า \"สิ่งที่หลานคิดว่าสำคัญที่สุดในการรักษาหัวใจที่เคยแตกสลาย คืออะไรหรือจ๊ะ?\" คุณจะตอบว่าอะไร?",
+            options: [
+                { type: "A", text_female: "การมองหาความสุขเล็กๆ และรอยยิ้มในทุกๆ วันค่ะ", text_male: "การมองหาความสุขเล็กๆ และรอยยิ้มในทุกๆ วันครับ", text_other: "การมองหาความสุขเล็กๆ และรอยยิ้มในทุกๆ วัน" },
+                { type: "B", text: "การได้รับความเชื่อใจ และการมี Safe Zone ที่ปลอดภัยจริงๆ" },
+                { type: "C", text: "การตั้งขอบเขตที่ชัดเจน และซื่อตรงต่อความรู้สึกของตัวเอง ไม่ยอมทนกับสิ่งที่ไม่ดี" },
+                { type: "D", text: "เวลาและความอดทน การให้พื้นที่โดยไม่บีบบังคับ" },
+                { type: "E", text: "ความกล้าหาญที่จะลุกขึ้นสู้เพื่อตัวเอง และการปกป้องคนที่เรารัก" },
+                { type: "F", text: "การเปิดใจรับสิ่งใหม่ๆ ที่คาดไม่ถึง เพราะชีวิตมักมีเรื่องประหลาดใจเสมอ" },
+                { type: "G", text: "การยอมรับและโอบกอดความเศร้า ให้โอกาสตัวเองได้เยียวยาบาดแผล" },
+                { type: "H", text: "การไม่จมอยู่กับอดีต แต่มีความหวังและเชื่อมั่นในอนาคตเสมอ" }
+            ]
+        },
+        {
+            scene: "8 / 8",
+            image: "scene8.jpg",
+            title: "การบอกลาและการเลือกระหว่างสายตา",
+            text: "ได้เวลาบอกลาบ้าน Sanctuary of Whiskers คุณยายเปิดประตูให้คุณ แต่ก่อนคุณจะก้าวออกไป มีสายตาคู่หนึ่งจากแมวจรในบ้านกำลังจ้องมองคุณอยู่... คุณคิดว่าคุณกำลังสบตากับแมวตัวไหน?",
+            options: [
+                { type: "A", text: "แมวเปอร์เซียขนฟูที่กำลังส่งยิ้มสดใสและวิ่งมาส่งคุณถึงประตู" },
+                { type: "B", text: "แมวบริติช ชอร์ตแฮร์ ที่นอนมองคุณด้วยสายตาอบอุ่นและเปี่ยมด้วยความเชื่อใจ" },
+                { type: "C", text: "แมวสฟิงซ์ที่นั่งเชิดหน้าอย่างทรงเสน่ห์ มองคุณด้วยสายตาวัดใจว่า \"แล้วเจอกันใหม่นะ\"" },
+                { type: "D", text: "แมวเบงกอลที่ค่อยๆ โผล่หน้ามาจากหลังม่าน ยอมโผล่มาส่งคุณเป็นครั้งแรก" },
+                { type: "E", text: "แมวสก๊อตติช โฟลด์ ที่นั่งนิ่งๆ หน้าบึ้ง แต่สายตามีความห่วงใยซ่อนอยู่" },
+                { type: "F", text: "แมวแร็กดอลล์ขนฟูที่ทำตาโต สะดุ้งตกใจตอนที่คุณหันกลับไปมอง" },
+                { type: "G", text: "แมววิเชียรมาศที่นั่งเหม่อริมหน้าต่าง ค่อยๆ หันมามองคุณด้วยสายตาซาบซึ้ง" },
+                { type: "H", text: "แมวเมนคูนตัวใหญ่สง่างาม ที่ยืนมองประตูด้วยสายตาเต็มเปี่ยมไปด้วยความหวัง" }
+            ]
+        }
+    ];
+
+    // --- CAT RESULTS DATA (MAPPED TO LOCAL IMAGE FILES) ---
+    const catResults = {
+        A: {
+            name: "ประกายแดด (Shine)",
+            breed: "เปอร์เซีย (Persian Cat)",
+            emotion: "JOY (ความสุข / ความสดใส)",
+            image: "joy_persian.jpg",
+            desc: "ขนฟูสีครีมทอง แก้มชมพูระเรื่อ ยิ้มหวาน ปากอ้า ตาเปล่งประกายระยิบระยับ",
+            bg: "เคยขนพันกันจนถูกทิ้ง แต่พบว่าความสุขอยู่แค่นิ้วมือลูบและการนอนตากแดด พลังงานบวกเต็มร้อย",
+            endingQuote: "ดวงอาทิตย์ดวงน้อยๆ ที่จะไม่มีวันดับลง",
+            endingText: "ประกายแดด วิ่งวนรอบขาคุณอย่างร่าเริง ก่อนจะกระโดดเข้าไปในตะกร้า รอยยิ้มทำให้บรรยากาศอบอุ่นทันที",
+            message: "ยิ้มเข้าไว้นะ! ความสุขไม่ใช่เรื่องยากเลย แค่ได้กินขนมอร่อยๆ กับนอนตากแดดอุ่นๆ ข้างๆ กัน วันนี้ก็กลายเป็นวันที่ดีที่สุดแล้ว"
+        },
+        B: {
+            name: "กำแพงเมือง (Citadel)",
+            breed: "บริติช ชอร์ตแฮร์ (British Shorthair)",
+            emotion: "TRUST (การยอมรับ / ความไว้วางใจ)",
+            image: "trust_britishshorthair.png",
+            desc: "ตัวนุ่มฟูสีเทา หน้ากลมแป้น แก้มเยอะ ตาสีส้มอำพัน ยิ้มละมุนละไม",
+            bg: "ผ่านการถูกปฏิเสธเพราะอ้วนเกินไป แต่ไม่เคยสิ้นหวัง เป็นที่พึ่งพิงและ Safe Zone ให้แมวตัวอื่นเสมอ",
+            endingQuote: "บ้าน ไม่ใช่สถานที่... แต่คือคนที่เราอยู่ด้วยแล้วสบายใจ",
+            endingText: "กำแพงเมืองเดินเข้ามาทิ้งตัวนอนเอาคางเกยบนเข่าของคุณอย่างไว้ใจ คุณคือ Safe Zone ที่มันตามหามาแสนนาน",
+            message: "ในโลกที่วุ่นวาย การเคียงข้างใครสักคนด้วยความเชื่อใจคือพลังที่ยิ่งใหญ่ที่สุด... กำแพงเมืองพร้อมจะเป็นพื้นที่ปลอดภัยให้คุณเสมอ"
+        },
+        C: {
+            name: "พิธีกร (Host)",
+            breed: "สฟิงซ์ (Sphynx Cat)",
+            emotion: "DISGUST (ขอบเขต / ความจริงใจ)",
+            image: "disgust_sphynx.jpg",
+            desc: "แมวไร้ขนผิวสีชมพู หูใหญ่ ตาสีเขียวจิกกัด หน้าตาบึ้งตึง คิ้วขมวด",
+            bg: "เคยเป็นแมวประกวดที่ถูกทิ้ง เกลียดความเสแสร้ง เจ้าระเบียบ มั่นใจสูง มี Personal Space ชัดเจน",
+            endingQuote: "เพราะคุณคือ 'คนที่ถูกเลือก' จากมาตรฐานที่สูงลิ่ว",
+            endingText: "พิธีกรเดินก้าวอย่างสง่างามเข้ามาในตะกร้า ละสายตามองคุณด้วยความภูมิใจ ราวกับบอกว่าคุณผ่านเกณฑ์แล้ว",
+            message: "ชีวิตมันสั้นเกินกว่าจะทนกับสิ่งที่เราไม่ชอบนะ! พิธีกรจะสอนให้คุณรู้จักปฏิเสธสิ่งที่ไม่ใช่สำหรับคุณ"
+        },
+        D: {
+            name: "ป่าช้า (Ghost)",
+            breed: "เบงกอล (Bengal Cat)",
+            emotion: "FEAR (ความกลัว / ความระมัดระวัง)",
+            image: "fear_bengal.jpg",
+            desc: "ลายเสือสุดเท่ ตาโตตื่นตระหนก รูม่านตาขยาย มีคลื่นความวิตกกังวล",
+            bg: "หลุดมาจากฟาร์มเถื่อน ทำให้ระแวงสิ่งรอบตัว ไวต่อเสียง แต่ถ้ายอมรับใครแล้วจะซื่อสัตย์เกาะติดไม่ห่าง",
+            endingQuote: "ความเชื่อใจที่ต้องใช้เวลา แต่คุ้มค่าที่สุดในโลก",
+            endingText: "ป่าช้า ค่อยๆ ยื่นจมูกมาดมมือคุณ เอาแก้มมาถูไถมือคุณเบาๆ เป็นครั้งแรก ก่อนก้าวเข้าไปนอนอย่างปลอดภัย",
+            message: "การระวังตัวไม่ใช่เรื่องผิดหรอก... ถ้าเราค่อยๆ ก้าวผ่านมันไปด้วยกัน ความกลัวจะกลายเป็นความกล้าหาญเอง"
+        },
+        E: {
+            name: "ไฟเยอร์ (Fire)",
+            breed: "สก๊อตติช โฟลด์ (Scottish Fold Cat)",
+            emotion: "ANGER (ความมุ่งมั่น / ปกป้องสิทธิ์)",
+            image: "anger_scottishfold.jpg",
+            desc: "หูพับลายสลิด หน้าบึ้งตึง ตาสีส้มลุกเป็นไฟ มีสัญลักษณ์เปลวไฟ",
+            bg: "อดีตจ่าฝูงที่ต้องสู้รบเพื่อปกป้องพวกพ้อง มีรอยแผลเป็นแห่งความกล้าหาญ เลือดร้อนแต่ทำเพราะรักสุดหัวใจ",
+            endingQuote: "องครักษ์สี่ขา ที่พร้อมจะปกป้องคุณด้วยชีวิต",
+            endingText: "ไฟเยอร์ เดินเข้าไปนั่งในตะกร้าอย่างองอาจ มองคุณราวกับตั้งปฏิญาณว่าต่อจากนี้ใครก็ทำร้ายคุณไม่ได้เด็ดขาด",
+            message: "อย่ายอมให้ใครมารังแกความใจดีของคุณนะ! ถ้าใครทำร้ายคุณ ไฟเยอร์นี่แหละจะขู่และปกป้องคุณเอง!"
+        },
+        F: {
+            name: "สายฟ้า (Thunder)",
+            breed: "แร็กดอลล์ (Ragdoll Cat)",
+            emotion: "SURPRISE (ความประหลาดใจ / ความตื่นเต้น)",
+            image: "surprise_ragdoll.jpg",
+            desc: "ขนยาวสีครีมเทา ตาโตสีฟ้าอ้าปากค้าง มีเครื่องหมายคำถามรอบตัว",
+            bg: "ขวัญอ่อน ตกใจง่าย แต่ช่างสังเกต ห้ามความอยากรู้อยากเห็นไม่ได้ ชอบทำหน้าตลกให้คุณหัวเราะ",
+            endingQuote: "เตรียมรับความสุขสุดประหลาดใจในทุกๆ วันได้เลย!",
+            endingText: "สายฟ้า พุ่งตัวลงไปในตะกร้า แล้วกระโดดเด้งดึ๋งออกมาทำตาโตใส่คุณ ก่อนมุดกลับลงไปใหม่ด้วยความตื่นเต้น",
+            message: "โลกใบนี้ยังมีเรื่องน่าแปลกใจรออยู่อีกเพียบเลย! มาเปิดกล่องความลับและค้นหาความสุขไปพร้อมกับสายฟ้านะ"
+        },
+        G: {
+            name: "หยาดฝน (Raindrop)",
+            breed: "วิเชียรมาศ (Siamese Cat)",
+            emotion: "SADNESS (ความเศร้า / ความโหยหา)",
+            image: "sadness_siamese.jpg",
+            desc: "แต้มสีเข้มตามจุด ตาสีฟ้าคลอนน้ำตา มีละอองเมฆฝนและหยดน้ำตา",
+            bg: "เคยเฝ้ารอเจ้าของเก่า สุภาพ ละเมียดละไม ชอบนั่งมองหยดน้ำฝน เข้าใจความสูญเสียและความรู้สึกผู้อื่นสูง",
+            endingQuote: "บาดแผลในอดีต จะกลายเป็นความเข้าใจที่อ่อนโยนที่สุด",
+            endingText: "หยาดฝนขยับตัวเข้ามาซุกในอ้อมแขนอย่างว่าง่าย น้ำตาอดีตถูกแทนที่ด้วยความอบอุ่น เราจะไม่เหงาคนเดียวอีกแล้ว",
+            message: "ถ้าวันไหนรู้สึกหนักอึ้ง ไม่ต้องฝืนยิ้มหรอกนะ... ให้หยาดฝนนั่งอยู่ข้างๆ ในความเงียบเพื่อเยียวยาหัวใจด้วยกัน"
+        },
+        H: {
+            name: "ดวงดาว (Starfall)",
+            breed: "เมนคูน (Maine Coon)",
+            emotion: "ANTICIPATION (ความคาดหวัง / การรอคอย)",
+            image: "anticipation_mainecoon.jpg",
+            desc: "ตัวใหญ่สง่างาม ขนยาวลายสลิด แผงคอเหมือนสิงโต มีประกายดาวส่องสว่าง",
+            bg: "อดีตแมวพเนจรรักการผจญภัย มักจ้องมองขอบฟ้า มีความเป็นผู้นำ อ่อนโยนแต่เข้มแข็ง มองการณ์ไกล",
+            endingQuote: "ออกเดินทางไปสู่วันพรุ่งนี้ด้วยกันนะ",
+            endingText: "ดวงดาว ยืนเอาอุ้งเท้าแตะขอบตะกร้า มองออกไปนอกหน้าต่างดวงตาเป็นประกาย พร้อมเริ่มต้นผจญภัยกับคุณ",
+            message: "จงก้าวไปข้างหน้าด้วยความหวังเถอะนะ! ไม่ว่าอดีตจะเป็นอย่างไร สิ่งที่ดีที่สุดกำลังรอเราอยู่ข้างหน้า"
+        }
+    };
+
+    // --- 2. POST-TEST SELF-AWARENESS DATA (20 QUESTIONS) ---
+    const postTestQuestions = [
+        "ฉันรู้ว่าฉันรู้สึกอย่างไรเมื่อเผชิญกับปัญหา",
+        "เมื่อหัวใจฉันเต้นแรง ฉันรู้ทันทีว่า ฉันกำลังตื่นเต้น",
+        "ฉันสามารถรับรู้ได้เมื่อร่างกายของฉันเริ่มอ่อนล้า",
+        "ฉันรู้สาเหตุที่ทำให้อารมณ์ของฉันเปลี่ยนแปลง",
+        "ฉันรู้จุดด้อยของตนเองและพร้อมที่จะพัฒนาตนเอง",
+        "เมื่อฉันอารมณ์ดีฉันจะสามารถแก้ไขปัญหาต่างๆ ได้ง่ายขึ้น",
+        "ฉันรับรู้ถึงความรู้สึกของฉันที่มีต่อคนรอบข้าง",
+        "ถ้าฉันต้องทำงานหรือกิจกรรมร่วมกับผู้อื่นฉันรู้ว่าตนเองรู้สึกอย่างไร เช่น เบื่อ ผิดหวัง มีความสุข เป็นต้น",
+        "ฉันคิดพิจารณาอย่างดีก่อนที่จะพูดหรือแสดงความคิดเห็น",
+        "ฉันไม่เก็บสิ่งที่เพื่อนต่อว่ามาคิดอีก",
+        "เมื่อฉันเหงื่อออกมาก ฉันรู้ทันทีว่า ฉันกำลังรู้สึกกดดัน",
+        "เมื่อได้รับการคัดเลือกให้เป็นตัวแทนหรือให้ทำกิจกรรมต่างๆ ฉันจะรู้สึกดีใจ",
+        "ฉันรู้ว่าขณะนี้ฉันรู้สึกอย่างไร",
+        "ฉันรู้ว่าตนเองสามารถเผชิญกับการเปลี่ยนแปลงที่เกิดขึ้นในชีวิตได้",
+        "ฉันยอมรับข้อผิดพลาดของตนเองและพยายามหาทางแก้ไข",
+        "ฉันรู้จุดเด่นและจุดด้อยของตนเอง",
+        "ฉันสามารถแสดงความรู้สึกของตนออกมาได้อย่างชัดเจนตรงตามกาลเทศะ",
+        "ฉันสามารถกล่าวคำขอโทษผู้อื่นได้เมื่อทำผิด",
+        "ฉันจะระมัดระวังคำพูดของตนเองเพื่อไม่ให้กระทบความรู้สึกของผู้อื่นเสมอ",
+        "ฉันยอมรับบุคคลอื่นที่มีการดำเนินชีวิตแตกต่างจากฉันได้"
+    ];
+
+    // --- GAME STATE VARIABLES ---
+    let currentQuestionIndex = 0;
+    let userAnswers = [];
+    let selectedOptionType = null;
+    let playerName = "เจน";
+    let playerGender = "female";
+
+    let currentPostTestIndex = 0;
+    let postTestScores = [];
+    let selectedPostTestRating = null;
+    let isTransitioning = false;
+
+    // --- FUNCTIONS ---
+    function goToIntroStep(stepNum) {
+        document.querySelectorAll('.intro-step').forEach(step => {
+            step.classList.remove('active-step');
+            step.style.display = 'none';
+        });
+
+        const targetStep = document.getElementById(`intro-step-${stepNum}`);
+        if (targetStep) {
+            targetStep.style.display = 'block';
+            setTimeout(() => {
+                targetStep.classList.add('active-step');
+            }, 10);
+        }
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function setGender(gender, element) {
+        playerGender = gender;
+        document.querySelectorAll('.gender-btn').forEach(btn => btn.classList.remove('selected'));
+        element.classList.add('selected');
+    }
+
+    function showScreen(screenId) {
+        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+        document.getElementById(screenId).classList.add('active');
+    }
+
+    function startQuiz() {
+        const inputVal = document.getElementById('player-name-input').value.trim();
+        if (inputVal) playerName = inputVal;
+        
+        const suffix = playerGender === 'male' ? 'ครับ' : (playerGender === 'female' ? 'ค่ะ' : '');
+        document.getElementById('user-greeting').textContent = `สวัสดี${suffix}, คุณ${playerName} ⭐️`;
+        
+        currentQuestionIndex = 0;
+        userAnswers = [];
+        selectedOptionType = null;
+        isTransitioning = false;
+        
+        showScreen('quiz-screen');
+        loadQuestion();
+    }
+
+    function loadQuestion() {
+        const q = questions[currentQuestionIndex];
+        
+        document.getElementById('scene-badge').textContent = q.scene;
+        const progressPercent = ((currentQuestionIndex + 1) / 8) * 100;
+        document.getElementById('progress-fill').style.width = `${progressPercent}%`;
+
+        // อัปเดตรูปภาพของแต่ละซีน
+        const sceneImg = document.getElementById('quiz-scene-img');
+        if (sceneImg && q.image) {
+            sceneImg.src = q.image;
+            sceneImg.alt = q.title;
+        }
+
+        let questionText = q.text;
+        if (currentQuestionIndex === 6) { // Scene 7
+            if (playerGender === 'female') questionText = q.text_female;
+            else if (playerGender === 'male') questionText = q.text_male;
+            else questionText = q.text_other;
+        }
+
+        document.getElementById('scene-title').textContent = q.title;
+        document.getElementById('question-text').textContent = questionText;
+
+        selectedOptionType = null;
+        isTransitioning = false;
+
+        const container = document.getElementById('options-container');
+        container.innerHTML = '';
+
+        q.options.forEach((opt) => {
+            let optionString = opt.text;
+            if (opt.text_female && opt.text_male) {
+                if (playerGender === 'female') optionString = opt.text_female;
+                else if (playerGender === 'male') optionString = opt.text_male;
+                else optionString = opt.text_other || opt.text;
+            }
+
+            const btn = document.createElement('div');
+            btn.className = 'opt-btn';
+            btn.onclick = () => selectOption(opt.type, btn);
+
+            btn.innerHTML = `
+                <span class="opt-text-full">${optionString}</span>
+            `;
+            container.appendChild(btn);
+        });
+
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function selectOption(type, element) {
+        if (isTransitioning) return;
+        isTransitioning = true;
+
+        selectedOptionType = type;
+        
+        document.querySelectorAll('.opt-btn').forEach(b => b.classList.remove('selected'));
+        element.classList.add('selected');
+
+        setTimeout(() => {
+            handleNextClick();
+        }, 220);
+    }
+
+    function handleNextClick() {
+        if (!selectedOptionType) return;
+
+        userAnswers.push(selectedOptionType);
+        currentQuestionIndex++;
+
+        if (currentQuestionIndex < questions.length) {
+            loadQuestion();
+        } else {
+            showScreen('posttest-intro-screen');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    }
+
+    // --- POST-TEST FUNCTIONS ---
+    function startPostTestQuiz() {
+        currentPostTestIndex = 0;
+        postTestScores = [];
+        selectedPostTestRating = null;
+        isTransitioning = false;
+
+        const suffix = playerGender === 'male' ? 'ครับ' : (playerGender === 'female' ? 'ค่ะ' : '');
+        document.getElementById('posttest-greeting').textContent = `แบบทดสอบ Post-test (คุณ${playerName}) ⭐️`;
+
+        showScreen('posttest-quiz-screen');
+        loadPostTestQuestion();
+    }
+
+    function loadPostTestQuestion() {
+        const totalPostTest = postTestQuestions.length;
+        const qNum = currentPostTestIndex + 1;
+
+        document.getElementById('posttest-badge').textContent = `ข้อ ${qNum} / ${totalPostTest}`;
+        const progressPercent = (qNum / totalPostTest) * 100;
+        document.getElementById('posttest-progress-fill').style.width = `${progressPercent}%`;
+
+        document.getElementById('posttest-question-text').textContent = postTestQuestions[currentPostTestIndex];
+
+        selectedPostTestRating = null;
+        isTransitioning = false;
+        document.querySelectorAll('.rating-btn').forEach(btn => btn.classList.remove('selected'));
+
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function selectPostTestRating(rating, element) {
+        if (isTransitioning) return;
+        isTransitioning = true;
+
+        selectedPostTestRating = rating;
+
+        document.querySelectorAll('.rating-btn').forEach(btn => btn.classList.remove('selected'));
+        element.classList.add('selected');
+
+        setTimeout(() => {
+            handlePostTestNext();
+        }, 180);
+    }
+
+    function handlePostTestNext() {
+        if (selectedPostTestRating === null) return;
+
+        postTestScores.push(selectedPostTestRating);
+        currentPostTestIndex++;
+
+        if (currentPostTestIndex < postTestQuestions.length) {
+            loadPostTestQuestion();
+        } else {
+            showStoryConclusionScreen();
+        }
+    }
+
+    // --- SHOW STORY CONCLUSION SCREEN (GOHOME.JPG) ---
+    function showStoryConclusionScreen() {
+        let pronoun = "หนู";
+        if (playerGender === "male") pronoun = "พ่อหนุ่ม";
+        else if (playerGender === "other") pronoun = "คุณ";
+
+        document.getElementById('conclusion-grandma-speech').textContent = 
+            `“ดูเหมือนว่า... วันนี้ไม่ได้มีแค่${pronoun}ที่กำลังมองหาใครสักคนนะจ๊ะ แต่มีเด็กคนหนึ่งที่เลือก${pronoun}ไว้ตั้งแต่ก้าวแรกที่คุณเดินเข้ามาแล้วล่ะ”`;
+
+        showScreen('conclusion-story-screen');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // --- RESULTS CALCULATIONS & DISPLAY ---
+    function calculateCatResult() {
+        const counts = {};
+        userAnswers.forEach(type => {
+            counts[type] = (counts[type] || 0) + 1;
+        });
+
+        let highestType = 'A';
+        let maxCount = 0;
+
+        for (const type in counts) {
+            if (counts[type] > maxCount) {
+                maxCount = counts[type];
+                highestType = type;
+            }
+        }
+        return catResults[highestType];
+    }
+
+    function showFinalResults() {
+        const cat = calculateCatResult();
+        const catContainer = document.getElementById('result-card-container');
+        const postTestContainer = document.getElementById('posttest-result-container');
+        const genderSuffix = playerGender === 'female' ? 'นะจ๊ะ' : (playerGender === 'male' ? 'นะครับ' : 'นะ');
+
+        // 1. TOP & MIDDLE: Matched Cat Actual Photo + Narrative Details
+        catContainer.innerHTML = `
+            <!-- Top Matched Cat Real Illustration Image -->
+            <div class="illustration-card" style="margin-bottom: 20px;">
+                <img src="${cat.image}" alt="${cat.name}" class="result-cat-img" onerror="this.src='https://via.placeholder.com/800x450/FDF0F2/5C3A31?text='+encodeURIComponent('${cat.name}')">
+            </div>
+
+            <!-- Matched Cat Details Card -->
+            <div class="result-card">
+                <div style="text-align: center; margin-bottom: 20px;">
+                    <span class="cat-tag">${cat.emotion}</span>
+                    <div class="cat-title">${cat.name}</div>
+                    <div style="color: var(--text-muted); font-size: 1rem; font-weight: 500;">สายพันธุ์: ${cat.breed}</div>
+                </div>
+
+                <div style="margin-bottom: 20px; font-size: 1.02rem; line-height: 1.7;">
+                    <p style="margin-bottom: 8px;"><strong>ลักษณะ:</strong> ${cat.desc}</p>
+                    <p style="margin-bottom: 12px;"><strong>ปูมหลัง:</strong> ${cat.bg}</p>
+                </div>
+
+                <!-- Decorative Divider -->
+                <div style="text-align: center; color: var(--btn-next); font-size: 1.2rem; margin: 22px 0 16px; opacity: 0.85;">
+                    ─── 🐾 ✨ 🐾 ───
+                </div>
+
+                <!-- Ending Quote & Narrative (Frameless) -->
+                <div style="text-align: center; padding: 5px 0 20px;">
+                    <p style="font-family: 'Prompt', sans-serif; font-size: 1.28rem; font-weight: 700; color: #6E3B47; margin-bottom: 10px; line-height: 1.5;">
+                        “${cat.endingQuote}”
+                    </p>
+                    <p style="font-size: 1.02rem; color: var(--text-dark); line-height: 1.75; font-style: italic;">
+                        ${cat.endingText}
+                    </p>
+                </div>
+
+                <!-- Cat's Heartfelt Message -->
+                <div style="text-align: center; padding: 15px 0 5px;">
+                    <p style="color: var(--btn-next); font-family: 'Prompt', sans-serif; font-size: 1.1rem; font-weight: 700; margin-bottom: 10px; display: flex; align-items: center; justify-content: center; gap: 6px;">
+                        💌 สาส์นจาก ${cat.name} ถึงคุณ ${playerName}
+                    </p>
+                    <p style="font-size: 1.05rem; color: var(--text-dark); line-height: 1.8; font-weight: 500;">
+                        “${cat.message} ${genderSuffix}”
+                    </p>
+                </div>
+            </div>
+        `;
+
+        // 2. BOTTOM: Post-test Self-Awareness Evaluation Card
+        const totalScore = postTestScores.reduce((a, b) => a + b, 0);
+        const avgScore = (totalScore / postTestQuestions.length).toFixed(2);
+        
+        let levelText = "";
+        let levelColor = "";
+
+        if (avgScore >= 3.50) {
+            levelText = "มีการตระหนักรู้ในตนเองอยู่ในระดับสูง (3.50–5.00)";
+            levelColor = "#15803D";
+        } else if (avgScore >= 2.50) {
+            levelText = "มีการตระหนักรู้ในตนเองอยู่ในระดับปานกลาง (2.50–3.49)";
+            levelColor = "#B45309";
+        } else {
+            levelText = "มีการตระหนักรู้ในตนเองอยู่ในระดับต่ำ (1.00–2.49)";
+            levelColor = "#DC2626";
+        }
+
+        postTestContainer.innerHTML = `
+            <div class="posttest-card">
+                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
+                    <span style="font-size: 1.3rem;">📊</span>
+                    <h3 style="font-family:'Prompt'; font-size:1.2rem; font-weight:700; color:#6E3B47;">
+                        ผลการประเมินการตระหนักรู้ในตนเอง (Post-test)
+                    </h3>
+                </div>
+
+                <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px;">
+                    <span style="color: var(--text-muted); font-size: 0.98rem;">คะแนนเฉลี่ยหลังเรียน:</span>
+                    <span style="font-size: 1.8rem; font-weight: 700; color: var(--btn-next);">${avgScore} <span style="font-size: 0.85rem; color: #8C7A6B; font-weight: 400;">/ 5.00</span></span>
+                </div>
+
+                <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px dashed var(--border-dark);">
+                    <span style="color: var(--text-muted); font-size: 0.95rem;">คะแนนรวม (20 ข้อ):</span>
+                    <span style="font-weight: 700; color: var(--text-dark);">${totalScore} / 100</span>
+                </div>
+
+                <div style="background-color: rgba(255,255,255,0.85); border-radius: 12px; padding: 12px 16px; border: 1px solid var(--border-dark);">
+                    <p style="font-weight: 700; font-size: 1rem; color: ${levelColor}; margin: 0;">
+                        ${levelText}
+                    </p>
+                </div>
+            </div>
+        `;
+
+        showScreen('result-screen');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function openKnowledgeModal() {
+        const modal = document.getElementById('knowledge-modal');
+        modal.style.display = 'flex';
+        setTimeout(() => {
+            modal.classList.add('active-modal');
+        }, 10);
+    }
+
+    function closeKnowledgeModal() {
+        const modal = document.getElementById('knowledge-modal');
+        modal.classList.remove('active-modal');
+        setTimeout(() => {
+            modal.style.display = 'none';
+        }, 300);
+    }
+
+    function restartQuiz() {
+        window.location.href = 'index.html';
+    }
+</script>
+
+</body>
+</html>
