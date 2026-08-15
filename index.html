@@ -499,19 +499,20 @@
       font-family: 'Mitr', 'Prompt', sans-serif;
     }
 
+    /* Modal Styling */
     .modal-overlay {
       position: fixed;
       top: 0;
       left: 0;
       width: 100vw;
       height: 100vh;
-      background-color: rgba(92, 58, 49, 0.6);
-      backdrop-filter: blur(5px);
+      background-color: rgba(92, 58, 49, 0.65);
+      backdrop-filter: blur(6px);
       z-index: 999;
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 20px;
+      padding: 16px;
       opacity: 0;
       transition: opacity 0.3s ease;
       pointer-events: none;
@@ -522,46 +523,77 @@
     }
 
     .modal-card {
-      background-color: var(--card-bg);
+      background-color: #FFFDFC;
       border: 2px solid var(--border-dark);
-      border-radius: 26px;
-      padding: 28px;
-      max-width: 680px;
+      border-radius: 28px;
+      padding: 24px;
+      max-width: 720px;
       width: 100%;
-      max-height: 85vh;
+      max-height: 88vh;
       overflow-y: auto;
-      box-shadow: 0 12px 36px rgba(184, 102, 120, 0.25);
+      box-shadow: 0 16px 40px rgba(184, 102, 120, 0.25);
       text-align: left;
+      position: relative;
     }
 
     .modal-close-icon {
-      background: none;
-      border: none;
-      font-size: 1.4rem;
+      background: #FFF0F2;
+      border: 1px solid var(--border-dark);
+      font-size: 1.2rem;
       font-weight: 700;
-      color: var(--text-dark);
+      color: #8C4352;
       cursor: pointer;
-      padding: 4px 10px;
+      width: 36px;
+      height: 36px;
       border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+    .modal-close-icon:hover {
+      background: #D0707B;
+      color: #FFF;
+      transform: rotate(90deg);
     }
 
-    .knowledge-section {
+    /* Multi-page Knowledge Components */
+    .knowledge-page {
+      display: none;
+      animation: fadeInPage 0.3s ease-out forwards;
+    }
+    .knowledge-page.active-page {
+      display: block;
+    }
+    @keyframes fadeInPage {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .k-tab-btn {
+      transition: all 0.2s ease;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .k-tab-btn.active {
+      background: linear-gradient(135deg, #E89CA7, #D0707B) !important;
+      color: #FFF !important;
+      border-color: #D0707B !important;
+      box-shadow: 0 2px 8px rgba(208, 112, 123, 0.25);
+    }
+
+    .k-item-card {
       background-color: #FFF;
-      border: 1px solid var(--border-dark);
+      border: 1.5px solid var(--border-dark);
       border-radius: 18px;
-      padding: 18px 20px;
-      margin-bottom: 14px;
+      padding: 16px 18px;
+      margin-bottom: 12px;
+      box-shadow: 0 3px 10px rgba(184, 102, 120, 0.05);
+      transition: transform 0.2s ease;
     }
-    .knowledge-section h4 {
-      font-family: 'Prompt', sans-serif;
-      color: #6E3B47;
-      margin-bottom: 8px;
-      font-size: 1.1rem;
-    }
-    .knowledge-section p {
-      font-size: 0.98rem;
-      line-height: 1.7;
-      color: var(--text-dark);
+    .k-item-card:hover {
+      transform: translateY(-2px);
     }
 
     @media (max-width: 820px) {
@@ -609,7 +641,7 @@
         <nav class="hidden md:flex items-center space-x-8 text-base font-medium text-[#7A4B56]">
           <a href="#" onclick="showScreen('landing-screen')" class="hover:text-[#E38892] transition">Cat Lounge</a>
           <a href="#emotions" class="hover:text-[#E38892] transition">Cat-firmations</a>
-          <a href="#" onclick="openKnowledgeModal()" class="hover:text-[#E38892] transition">Blog & Guide</a>
+          <a href="javascript:void(0)" onclick="openKnowledgeModal()" class="hover:text-[#E38892] transition">Blog & Guide</a>
         </nav>
 
         <!-- Action Button & Mobile Toggle -->
@@ -632,7 +664,7 @@
       <div id="mobile-menu" class="hidden md:hidden bg-white/95 border-b border-pink-100 px-6 py-4 space-y-3">
         <a href="#" onclick="showScreen('landing-screen')" class="block text-[#7A4B56] hover:text-[#E38892]">Cat Lounge</a>
         <a href="#emotions" class="block text-[#7A4B56] hover:text-[#E38892]">Cat-firmations</a>
-        <a href="#" onclick="openKnowledgeModal()" class="block text-[#7A4B56] hover:text-[#E38892]">Blog & Guide</a>
+        <a href="javascript:void(0)" onclick="openKnowledgeModal()" class="block text-[#7A4B56] hover:text-[#E38892]">Blog & Guide</a>
       </div>
     </header>
 
@@ -766,8 +798,8 @@
       <div class="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row justify-between items-center gap-4">
         <div class="flex space-x-6 text-xs sm:text-sm font-medium">
           <a href="#" onclick="showScreen('landing-screen')" class="hover:text-[#B85B66] transition">About Us</a>
-          <a href="#" onclick="openKnowledgeModal()" class="hover:text-[#B85B66] transition">Resources</a>
-          <a href="#" onclick="openKnowledgeModal()" class="hover:text-[#B85B66] transition">Blog</a>
+          <a href="javascript:void(0)" onclick="openKnowledgeModal()" class="hover:text-[#B85B66] transition">Resources</a>
+          <a href="javascript:void(0)" onclick="openKnowledgeModal()" class="hover:text-[#B85B66] transition">Blog</a>
         </div>
         <p>© 2026 FeelMe Studio. Made with purrs and care 🐾</p>
       </div>
@@ -1021,7 +1053,7 @@
         
         <div class="progress-row">
           <div id="scene-badge" class="scene-badge">1 / 8</div>
-          <div class="progress-bar-bg">
+          <div class="progress-bar-bg flex-grow h-[22px] bg-white/90 border-2 border-[#F7D6DC] rounded-[15px] p-[2px] overflow-hidden">
             <div id="progress-fill" class="progress-bar-fill"></div>
           </div>
         </div>
@@ -1046,7 +1078,7 @@
       <div id="posttest-intro-screen" class="screen" style="display:none;">
         <div class="intro-box">
           <div class="illustration-card">
-            <img src="wait.jpg" alt="น้องแมวกำลังรอคุณอยู่" class="result-cat-img" onerror="this.src='https://via.placeholder.com/800x450/FDF0F2/5C3A31?text=Please+wait';">
+            <img src="wait.jpg" alt="น้องแมวกกำลังรอคุณอยู่" class="result-cat-img" onerror="this.src='https://via.placeholder.com/800x450/FDF0F2/5C3A31?text=Please+wait';">
           </div>
 
           <div class="intro-text-frameless" style="margin-top: 15px;">
@@ -1071,7 +1103,7 @@
         
         <div class="progress-row">
           <div id="posttest-badge" class="scene-badge">ข้อ 1 / 20</div>
-          <div class="progress-bar-bg">
+          <div class="progress-bar-bg flex-grow h-[22px] bg-white/90 border-2 border-[#F7D6DC] rounded-[15px] p-[2px] overflow-hidden">
             <div id="posttest-progress-fill" class="progress-bar-fill"></div>
           </div>
         </div>
@@ -1202,41 +1234,205 @@
   </div>
 
   <!-- ========================================================================= -->
-  <!-- MODAL 2: KNOWLEDGE MODAL (Self-Awareness Guide)                           -->
+  <!-- MODAL 2: KNOWLEDGE MODAL (PAGINATED 3-STEP EMOTION REGULATION GUIDE)       -->
   <!-- ========================================================================= -->
   <div id="knowledge-modal" class="modal-overlay">
     <div class="modal-card">
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; border-bottom:2px dashed var(--border-dark); padding-bottom:12px;">
-        <h3 class="cat-font text-xl font-bold text-[#6E3B47] m-0">
-          📚 ความรู้เพิ่มเติมเกี่ยวกับการตระหนักรู้ในตนเอง
-        </h3>
-        <button type="button" class="modal-close-icon" onclick="closeKnowledgeModal()">✕</button>
+      
+      <!-- Modal Header -->
+      <div class="flex justify-between items-center mb-4 pb-3 border-b-2 border-dashed border-[#F7D6DC]">
+        <div class="flex items-center gap-2.5">
+          <span class="text-2xl">📚</span>
+          <div>
+            <h3 class="cat-font text-lg sm:text-xl font-bold text-[#6E3B47] leading-tight">
+              คู่มือการดูแลและจัดการอารมณ์ตนเอง
+            </h3>
+            <p class="text-xs text-[#8C6D63] font-medium">Emotional Regulation & Self-Care Guide 🐾</p>
+          </div>
+        </div>
+        <button type="button" class="modal-close-icon" onclick="closeKnowledgeModal()" aria-label="Close">✕</button>
       </div>
 
-      <div class="knowledge-body">
-        <div class="knowledge-section">
-          <h4>🌱 1. การตระหนักรู้ในตนเอง (Self-Awareness) คืออะไร?</h4>
-          <p>การตระหนักรู้ในตนเอง คือความสามารถในการรับรู้และเข้าใจอารมณ์ ความรู้สึก ความคิด จุดเด่น จุดที่ควรพัฒนา รวมถึงค่านิยมของตนเองอย่างตามจริง ช่วยให้เราเข้าใจสาเหตุของพฤติกรรมและการตอบสนองต่อสถานการณ์ต่างๆ ในชีวิตได้อย่างมีสติ</p>
+      <!-- Navigation Tabs (Pills) -->
+      <div class="grid grid-cols-3 gap-1.5 sm:gap-2 mb-4 bg-pink-50/70 p-1.5 rounded-2xl border border-pink-100">
+        <button id="k-tab-1" class="k-tab-btn active py-2 px-1 sm:px-3 rounded-xl border border-transparent text-[#7A4B56] flex items-center justify-center gap-1" onclick="setKnowledgePage(1)">
+          <span>⚡</span>
+          <span class="truncate">1. การรับมือ</span>
+        </button>
+        <button id="k-tab-2" class="k-tab-btn py-2 px-1 sm:px-3 rounded-xl border border-transparent text-[#7A4B56] flex items-center justify-center gap-1" onclick="setKnowledgePage(2)">
+          <span>💡</span>
+          <span class="truncate">2. การแก้ไข</span>
+        </button>
+        <button id="k-tab-3" class="k-tab-btn py-2 px-1 sm:px-3 rounded-xl border border-transparent text-[#7A4B56] flex items-center justify-center gap-1" onclick="setKnowledgePage(3)">
+          <span>🛡️</span>
+          <span class="truncate">3. ป้องกัน/ส่งเสริม</span>
+        </button>
+      </div>
+
+      <!-- SLIDE 1: การรับมือ (เมื่ออารมณ์เกิดขึ้นทันที) -->
+      <div id="k-page-1" class="knowledge-page active-page">
+        <div class="bg-gradient-to-r from-orange-50 to-pink-50 p-3.5 rounded-2xl border border-orange-100 mb-3.5 flex items-center gap-2.5">
+          <span class="text-2xl">⚡</span>
+          <div>
+            <h4 class="font-bold text-[#6E3B47] text-base">ส่วนที่ 1: การรับมือ (เมื่ออารมณ์เกิดขึ้นทันที)</h4>
+            <p class="text-xs text-[#8C6D63]">เทคนิคการตั้งสติและดึงความสมดุลกลับมาในวินาทีแรกที่เกิดอารมณ์</p>
+          </div>
         </div>
 
-        <div class="knowledge-section">
-          <h4>🧡 2. การสร้าง Safe Zone และพื้นที่ปลอดภัยให้จิตใจ</h4>
-          <p>เปรียบเหมือนกับแมวจรในบ้านพักใจที่ต้องการความเชื่อใจและความอบอุ่น มนุษย์เราทุกคนต่างต้องการ "Safe Zone" ในชีวิตเช่นกัน Safe Zone ไม่ใช่แค่สถานที่ แต่คือความรู้สึกสบายใจ การรับฟังโดยไม่ตัดสิน และการซื่อตรงต่อความรู้สึกของตนเอง</p>
-        </div>
+        <div class="space-y-2.5">
+          <div class="k-item-card">
+            <h5 class="font-bold text-[#8C4352] text-sm sm:text-base flex items-center gap-2 mb-1">
+              <span>🛑</span> หยุดและรับรู้อารมณ์
+            </h5>
+            <p class="text-xs sm:text-sm text-[#5C3A31] leading-relaxed">
+              ตระหนักรู้สภาวะตนเอง สังเกตสิ่งที่รู้สึก และยอมรับว่าเป็นปฏิกิริยาตามธรรมชาติ
+            </p>
+          </div>
 
-        <div class="knowledge-section">
-          <h4>🍃 3. เคล็ดลับการดูแลจิตใจในวันหนักๆ</h4>
-          <ul style="padding-left:20px; line-height:1.75; font-size:0.98rem; color:var(--text-dark);">
-            <li><strong>โอบกอดอารมณ์ตนเอง:</strong> ไม่จำเป็นต้องฝืนยิ้มหรือรีบร้อนเข้มแข็งตลอดเวลา การยอมรับความเศร้าคือจุดเริ่มต้นของการเยียวยา</li>
-            <li><strong>ตั้งขอบเขตที่ชัดเจน (Personal Space):</strong> กล้าปฏิเสธสิ่งที่ทำร้ายจิตใจเพื่อปกป้องพลังงานในตนเอง</li>
-            <li><strong>เติมพลังจากความสุขเล็กๆ:</strong> มองหารอยยิ้ม ความอบอุ่นจากธรรมชาติ ชาร้อน หรือสัตว์เลี้ยงใกล้ตัวในทุกวัน</li>
-          </ul>
+          <div class="k-item-card">
+            <h5 class="font-bold text-[#8C4352] text-sm sm:text-base flex items-center gap-2 mb-1">
+              <span>⏳</span> เว้นระยะก่อนตอบสนอง
+            </h5>
+            <p class="text-xs sm:text-sm text-[#5C3A31] leading-relaxed">
+              ชะลอการกระทำหรือการพูด นับ 1–10 หรือเดินเลี่ยงออกจากสถานการณ์ชั่วคราว
+            </p>
+          </div>
+
+          <div class="k-item-card">
+            <h5 class="font-bold text-[#8C4352] text-sm sm:text-base flex items-center gap-2 mb-1">
+              <span>🧘</span> ผ่อนคลายร่างกาย
+            </h5>
+            <p class="text-xs sm:text-sm text-[#5C3A31] leading-relaxed">
+              หายใจเข้า-ออกลึกๆ ช้าๆ ผ่อนคลายกล้ามเนื้อ หรือฟังเพลงสงบเพื่อปรับสมดุลระบบประสาท
+            </p>
+          </div>
+
+          <div class="k-item-card">
+            <h5 class="font-bold text-[#8C4352] text-sm sm:text-base flex items-center gap-2 mb-1">
+              <span>🌸</span> ดื่มด่ำความรู้สึกดี
+            </h5>
+            <p class="text-xs sm:text-sm text-[#5C3A31] leading-relaxed">
+              เมื่อมีความสุข ให้หยุดสังเกตและรับรู้ความรู้สึกอย่างตั้งใจ เพื่อให้สมองจดจำช่วงเวลาเชิงบวก
+            </p>
+          </div>
         </div>
       </div>
 
-      <button type="button" class="btn-next btn-secondary" style="margin-top:20px; width:100%;" onclick="closeKnowledgeModal()">
-        ปิดหน้าความรู้เพิ่มเติม ✕
-      </button>
+      <!-- SLIDE 2: การแก้ไข (จัดการกับปัญหาและความคิด) -->
+      <div id="k-page-2" class="knowledge-page">
+        <div class="bg-gradient-to-r from-emerald-50 to-teal-50 p-3.5 rounded-2xl border border-emerald-100 mb-3.5 flex items-center gap-2.5">
+          <span class="text-2xl">💡</span>
+          <div>
+            <h4 class="font-bold text-[#2D5A43] text-base">ส่วนที่ 2: การแก้ไข (จัดการกับปัญหาและความคิด)</h4>
+            <p class="text-xs text-[#52796F]">การปรับกระบวนการคิดและสื่อสารเพื่อคลี่คลายปัญหาอย่างสร้างสรรค์</p>
+          </div>
+        </div>
+
+        <div class="space-y-2.5">
+          <div class="k-item-card">
+            <h5 class="font-bold text-[#2D5A43] text-sm sm:text-base flex items-center gap-2 mb-1">
+              <span>🔍</span> ประเมินและแยกแยะตามจริง
+            </h5>
+            <p class="text-xs sm:text-sm text-[#5C3A31] leading-relaxed">
+              แยกแยะข้อเท็จจริงออกจากการตัดสิน อคติ หรือการคาดการณ์ที่เกินจริง
+            </p>
+          </div>
+
+          <div class="k-item-card">
+            <h5 class="font-bold text-[#2D5A43] text-sm sm:text-base flex items-center gap-2 mb-1">
+              <span>🔄</span> ปรับมุมมอง (Reframing)
+            </h5>
+            <p class="text-xs sm:text-sm text-[#5C3A31] leading-relaxed">
+              มองสถานการณ์จากหลายมุม เปิดรับข้อมูลใหม่ และมองอุปสรรคเป็นโอกาสในการเรียนรู้
+            </p>
+          </div>
+
+          <div class="k-item-card">
+            <h5 class="font-bold text-[#2D5A43] text-sm sm:text-base flex items-center gap-2 mb-1">
+              <span>💬</span> สื่อสารอย่างสร้างสรรค์
+            </h5>
+            <p class="text-xs sm:text-sm text-[#5C3A31] leading-relaxed">
+              สื่อสารความรู้สึกตนเองอย่างเหมาะสมและตรงประเด็น แทนการใช้ถ้อยคำกล่าวโทษหรือใช้อารมณ์
+            </p>
+          </div>
+
+          <div class="k-item-card">
+            <h5 class="font-bold text-[#2D5A43] text-sm sm:text-base flex items-center gap-2 mb-1">
+              <span>🤝</span> ขอความช่วยเหลือ
+            </h5>
+            <p class="text-xs sm:text-sm text-[#5C3A31] leading-relaxed">
+              พูดคุยแบ่งปันกับคนที่ไว้ใจ หรือปรึกษานักจิตวิทยา/ผู้เชี่ยวชาญหากอารมณ์ด้านลบกระทบต่อชีวิตประจำวันยาวนาน
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 3: การป้องกันและส่งเสริม (สร้างภูมิคุ้มกันระยะยาว) -->
+      <div id="k-page-3" class="knowledge-page">
+        <div class="bg-gradient-to-r from-purple-50 to-pink-50 p-3.5 rounded-2xl border border-purple-100 mb-3.5 flex items-center gap-2.5">
+          <span class="text-2xl">🛡️</span>
+          <div>
+            <h4 class="font-bold text-[#5E3A6E] text-base">ส่วนที่ 3: การป้องกันและส่งเสริม (สร้างภูมิคุ้มกันระยะยาว)</h4>
+            <p class="text-xs text-[#7B588B]">การสร้างเกราะป้องกันทางใจและสุขภาวะที่ดีอย่างยั่งยืนในทุกๆ วัน</p>
+          </div>
+        </div>
+
+        <div class="space-y-2.5">
+          <div class="k-item-card">
+            <h5 class="font-bold text-[#5E3A6E] text-sm sm:text-base flex items-center gap-2 mb-1">
+              <span>🥗</span> ดูแลสุขภาพกายและใจ
+            </h5>
+            <p class="text-xs sm:text-sm text-[#5C3A31] leading-relaxed">
+              พักผ่อนให้เพียงพอ รับประทานอาหารที่มีประโยชน์ ออกกำลังกาย และจัดสมดุลชีวิต
+            </p>
+          </div>
+
+          <div class="k-item-card">
+            <h5 class="font-bold text-[#5E3A6E] text-sm sm:text-base flex items-center gap-2 mb-1">
+              <span>💖</span> สร้างความสัมพันธ์เชิงบวก
+            </h5>
+            <p class="text-xs sm:text-sm text-[#5C3A31] leading-relaxed">
+              แบ่งปันประสบการณ์ที่ดีกับผู้อื่น และฝึกเปิดใจยอมรับความแตกต่าง
+            </p>
+          </div>
+
+          <div class="k-item-card">
+            <h5 class="font-bold text-[#5E3A6E] text-sm sm:text-base flex items-center gap-2 mb-1">
+              <span>📝</span> ทำกิจกรรมที่มีคุณค่าและบันทึกสิ่งดีๆ
+            </h5>
+            <p class="text-xs sm:text-sm text-[#5C3A31] leading-relaxed">
+              ทำกิจกรรมที่ชอบและมีความหมาย จดบันทึกสิ่งที่รู้สึกขอบคุณในแต่ละวันเพื่อรักษาอารมณ์ที่ดีอย่างต่อเนื่อง
+            </p>
+          </div>
+
+          <div class="k-item-card">
+            <h5 class="font-bold text-[#5E3A6E] text-sm sm:text-base flex items-center gap-2 mb-1">
+              <span>🚫</span> หลีกเลี่ยงสิ่งที่เป็นอันตราย
+            </h5>
+            <p class="text-xs sm:text-sm text-[#5C3A31] leading-relaxed">
+              หลีกเลี่ยงสภาพแวดล้อมที่ไม่ปลอดภัยหรือสิ่งที่เป็นภัยต่อสุขภาพอย่างเหมาะสม
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer Slide Navigation Controls -->
+      <div class="mt-5 pt-3 border-t border-pink-100 flex items-center justify-between gap-3">
+        <button id="k-prev-btn" type="button" class="px-4 py-2 rounded-xl border-2 border-pink-200 text-[#7A4B56] hover:bg-pink-50 font-semibold text-xs sm:text-sm transition flex items-center gap-1" onclick="prevKnowledgePage()">
+          <span>❮</span>
+          <span>ย้อนกลับ</span>
+        </button>
+
+        <div class="flex items-center gap-1.5 text-xs font-bold text-[#8C6D63]">
+          <span id="k-page-indicator">หน้า 1 / 3</span>
+        </div>
+
+        <button id="k-next-btn" type="button" class="px-5 py-2 rounded-xl bg-[#E89CA7] hover:bg-[#D0707B] text-white font-semibold text-xs sm:text-sm transition shadow-sm flex items-center gap-1" onclick="nextKnowledgePage()">
+          <span>ถัดไป</span>
+          <span>❯</span>
+        </button>
+      </div>
+
     </div>
   </div>
 
@@ -1539,7 +1735,7 @@
         bg: "ขวัญอ่อน ตกใจง่าย แต่ช่างสังเกต ห้ามความอยากรู้อยากเห็นไม่ได้ ชอบทำหน้าตลกให้คุณหัวเราะ",
         endingQuote: "เตรียมรับความสุขสุดประหลาดใจในทุกๆ วันได้เลย!",
         endingText: "สายฟ้า พุ่งตัวลงไปในตะกร้า แล้วกระโดดเด้งดึ๋งออกมาทำตาโตใส่คุณ ก่อนมุดกลับลงไปใหม่ด้วยความตื่นเต้น",
-        message: "โลกใบนี้ยังมีเรื่องน่าแปลกใจรออยู่อีกเพียบเลย! มาเปิดกล่องความลับและค้นหาความสุขไปพร้อมกับสายฟ้านะ"
+        message: "โลกใบนี้ยังมีเรื่องน่าแปลกใจรออยู่อีกเพียบเลย! มาเปิดกล่องความลับและค้นหาความสุขไปพร้อมกับสายฟ้านนะ"
       },
       G: {
         name: "หยาดฝน (Raindrop)",
@@ -1583,6 +1779,9 @@
     let postTestIndex = 0;
     let postTestScores = [];
     let selectedPostTestRating = null;
+
+    let currentKnowledgePage = 1;
+    const totalKnowledgePages = 3;
 
     /* --------------------------------------------------------------------------
      * NAVIGATION HELPERS
@@ -2117,15 +2316,79 @@
     }
 
     /* --------------------------------------------------------------------------
-     * 6. KNOWLEDGE MODAL & RESET
+     * 6. KNOWLEDGE MODAL (PAGINATED) LOGIC
      * -------------------------------------------------------------------------- */
     function openKnowledgeModal() {
+      setKnowledgePage(1);
       const modal = document.getElementById('knowledge-modal');
       modal.classList.add('active-modal');
     }
 
     function closeKnowledgeModal() {
       document.getElementById('knowledge-modal').classList.remove('active-modal');
+    }
+
+    function setKnowledgePage(pageNum) {
+      currentKnowledgePage = pageNum;
+      
+      // Update Pages visibility
+      for (let i = 1; i <= totalKnowledgePages; i++) {
+        const p = document.getElementById(`k-page-${i}`);
+        const tab = document.getElementById(`k-tab-${i}`);
+        
+        if (p) {
+          if (i === pageNum) {
+            p.classList.add('active-page');
+          } else {
+            p.classList.remove('active-page');
+          }
+        }
+        
+        if (tab) {
+          if (i === pageNum) {
+            tab.classList.add('active');
+          } else {
+            tab.classList.remove('active');
+          }
+        }
+      }
+
+      // Update Indicator and Prev/Next button states
+      document.getElementById('k-page-indicator').textContent = `หน้า ${pageNum} / ${totalKnowledgePages}`;
+
+      const prevBtn = document.getElementById('k-prev-btn');
+      const nextBtn = document.getElementById('k-next-btn');
+
+      if (pageNum === 1) {
+        prevBtn.style.visibility = 'hidden';
+      } else {
+        prevBtn.style.visibility = 'visible';
+      }
+
+      if (pageNum === totalKnowledgePages) {
+        nextBtn.innerHTML = '<span>เสร็จสิ้น 🐾</span>';
+      } else {
+        nextBtn.innerHTML = '<span>ถัดไป</span> <span>❯</span>';
+      }
+
+      const modalContent = document.querySelector('#knowledge-modal .modal-card');
+      if (modalContent) {
+        modalContent.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+
+    function nextKnowledgePage() {
+      if (currentKnowledgePage < totalKnowledgePages) {
+        setKnowledgePage(currentKnowledgePage + 1);
+      } else {
+        closeKnowledgeModal();
+      }
+    }
+
+    function prevKnowledgePage() {
+      if (currentKnowledgePage > 1) {
+        setKnowledgePage(currentKnowledgePage - 1);
+      }
     }
 
     function restartEntireApp() {
